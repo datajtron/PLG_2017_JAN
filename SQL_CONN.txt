@@ -1,0 +1,20 @@
+##### This is a simple RODBC example
+##### The ODBCDriverName will be the driver name in ODBC Administrator
+
+require(RODBC)
+
+#open the ODBC connection
+ch <- odbcConnect("finConn")
+
+##### Alternative ODBC connection for Microsoft SQL Server
+ch <- odbcDriverConnect(
+                        "Driver=SQL Server; Server=X; Database=sandbox; UID=user; Pwd=p55555"
+                       )
+
+#run the query, store in a data frame
+sqlResult <- sqlQuery(ch, "SELECT volume
+                FROM X
+                ;")
+
+#close the ODBC connection
+odbcClose(ch)

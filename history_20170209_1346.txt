@@ -1,0 +1,27 @@
+#run the query, store in a data frame
+sqlResult <- sqlQuery(ch, "SELECT volume
+                FROM X
+                ;")
+sqlResult
+#close the ODBC connection
+odbcClose(ch)
+require(RODBC)
+#open the ODBC connection
+ch <- odbcConnect("finConn")
+##### Alternative ODBC connection for Microsoft SQL Server
+ch <- odbcDriverConnect(
+                        "Driver=SQL Server; Server=x; Database=sandbox; UID=user; Pwd=p55555#"
+                       )
+#run the query, store in a data frame
+sqlResult <- sqlQuery(ch, "SELECT *
+                FROM X_PLG_2017_AGG
+                ;")
+sqlResult
+mydata <- data.frame(sqlResult)
+mydata
+odbcClose(ch)
+mydata
+mydata[1:2]
+mydata[3:4]
+history()
+

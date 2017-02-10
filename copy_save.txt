@@ -1,0 +1,1008 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> getwd()
+[1] "C:/Users/jarredfinney/Documents"
+> load("C:\\R\\PLG_2017_JAN\\.RData")
+> getwd()
+[1] "C:/Users/jarredfinney/Documents"
+> setwd("C:/R/PLG_2017_JAN")
+> ls()
+ [1] "a"           "age"         "cells"       "cnames"      "diabetes"   
+ [6] "dim1"        "dim2"        "dim3"        "mymatrix"    "patientdata"
+[11] "patientID"   "rnames"      "status"      "x"           "y"          
+[16] "z"          
+> save.image("C:\\R\\PLG_2017_JAN\\.RData")
+> save.image("workfile")
+> ls()
+ [1] "a"           "age"         "cells"       "cnames"      "diabetes"   
+ [6] "dim1"        "dim2"        "dim3"        "mymatrix"    "patientdata"
+[11] "patientID"   "rnames"      "status"      "x"           "y"          
+[16] "z"          
+> save.image("workfile")
+> library(RODBC) 
+> dbhandle <- odbcDriverConnect('driver={finConn};server=VPS0033L;database=financialssandbox;trusted_connection=true')
+Warning messages:
+1: In odbcDriverConnect("driver={finConn};server=VPS0033L;database=financialssandbox;trusted_connection=true") :
+  [RODBC] ERROR: state IM002, code 0, message [Microsoft][ODBC Driver Manager] Data source name not found and no default driver specified
+2: In odbcDriverConnect("driver={finConn};server=VPS0033L;database=financialssandbox;trusted_connection=true") :
+  ODBC connection failed
+> res <- sqlQuery(dbhandle, 'select * from X_PLG_2017_AGG')
+Error in sqlQuery(dbhandle, "select * from X_PLG_2017_AGG") : 
+  first argument is not an open RODBC channel
+> cler
+Error: object 'cler' not found
+> clear
+Error: object 'clear' not found
+> require(RODBC)
+> 
+> #open the ODBC connection
+> ch <- odbcConnect("finConn")
+> 
+> ##### Alternative ODBC connection for Microsoft SQL Server
+> ch <- odbcDriverConnect(
++                         "Driver=SQL Server; Server=VPS0033LJFINNEY; Database=financialssandbox; UID=biuser; Pwd=p0w3R!!#"
++                        )
+> 
+> #run the query, store in a data frame
+> sqlResult <- sqlQuery(ch, "SELECT volume
++                 FROM X_PLG_2017_AGG
++                 ;")
+> sqlResult
+    volume
+1      358
+2       10
+3       83
+4      734
+5        5
+6        5
+7      252
+8        6
+9       97
+10      30
+11     176
+12      25
+13     466
+14      97
+15       3
+16      15
+17     253
+18      11
+19      96
+20       1
+21     117
+22      78
+23       8
+24      48
+25       6
+26     316
+27      24
+28       4
+29      23
+30       6
+31       9
+32      44
+33       2
+34     139
+35       1
+36       4
+37      25
+38    1588
+39     189
+40       4
+41     516
+42     269
+43    1059
+44      46
+45      53
+46      24
+47      19
+48       1
+49     126
+50      24
+51     241
+52       6
+53      39
+54      47
+55       2
+56      20
+57       3
+58       5
+59      23
+60      15
+61     133
+62      35
+63     214
+64       8
+65      78
+66      22
+67      93
+68       9
+69    4277
+70     158
+71     824
+72       4
+73      29
+74       1
+75       2
+76     403
+77     375
+78       3
+79     332
+80      22
+81      76
+82       3
+83     393
+84      31
+85      84
+86      33
+87       4
+88       5
+89       4
+90     110
+91       5
+92     684
+93      77
+94       9
+95      14
+96      39
+97      12
+98      19
+99     305
+100      1
+101     14
+102     48
+103     71
+104    133
+105    134
+106    120
+107    335
+108     14
+109     29
+110      6
+111    882
+112      9
+113     10
+114  12682
+115      4
+116    140
+117      3
+118     13
+119    203
+120     24
+121    206
+122     16
+123     26
+124      7
+125     13
+126      5
+127    209
+128      2
+129      6
+130     32
+131     22
+132      2
+133     24
+134   9913
+135    381
+136      4
+137      2
+138      9
+139      9
+140    361
+141    225
+142    270
+143    251
+144    201
+145    560
+146     85
+147    113
+148     64
+149    450
+150      4
+151      8
+152     17
+153     50
+154    272
+155      1
+156    357
+157     11
+158     20
+159    808
+160     57
+161     21
+162     45
+163    170
+164     36
+165     10
+166      2
+167     12
+168     42
+169     10
+170     25
+171     58
+172    121
+173     70
+174    210
+175     28
+176    614
+177     39
+178   2819
+179     99
+180     96
+181    213
+182     11
+183      5
+184    143
+185     13
+186     24
+187     73
+188     28
+189     28
+190      4
+191     92
+192      9
+193     11
+194     34
+195     16
+196     12
+197    110
+198     33
+199  18065
+200  26938
+201   1380
+202      4
+203   2876
+204    140
+205     24
+206     97
+207      2
+208     64
+209     38
+210     29
+211    142
+212    134
+213    612
+214     26
+215    986
+216    209
+217     24
+218     40
+219      2
+220      8
+221     16
+222    669
+223     32
+224      2
+225     15
+226   2663
+227     32
+228    179
+229    966
+230    604
+231     12
+232      7
+233    300
+234    314
+235    142
+236   1267
+237      3
+238    197
+239     78
+240     31
+241     69
+242     13
+243    115
+244     40
+245     12
+246      8
+247     23
+248      9
+249     99
+250     13
+251      1
+252     41
+253      7
+254     26
+255     26
+256    264
+257      5
+258    331
+259     13
+260    101
+261     15
+262   1719
+263      3
+264     30
+265     24
+266    117
+267      5
+268    322
+269     33
+270    108
+271    344
+272   1016
+273     15
+274      9
+275    138
+276    700
+277      1
+278      3
+279     40
+280   1860
+281    115
+282     42
+283      4
+284     42
+285      7
+286     22
+287    127
+288    302
+289     40
+290      4
+291    778
+292     20
+293     14
+294     31
+295     22
+296     25
+297      2
+298    170
+299     14
+300     25
+301      5
+302      1
+303     23
+304    710
+305     55
+306      1
+307     22
+308    500
+309     30
+310     23
+311    174
+312    164
+313      3
+314     13
+315     11
+316      3
+317     26
+318     91
+319     51
+320    100
+321     12
+322      4
+323     13
+324      5
+325    291
+326      6
+327      1
+328  56171
+329     43
+330     99
+331     46
+332    682
+333      1
+334     46
+335     13
+336   1106
+337      6
+338    441
+339     22
+340    123
+341     51
+342    325
+343    465
+344    174
+345    154
+346      3
+347     94
+348    539
+349    135
+350    169
+351      1
+352   3144
+353   1198
+354  25079
+355   3394
+356    618
+357    117
+358     22
+359      4
+360      1
+361      2
+362     13
+363     84
+364    496
+365     27
+366      9
+367    539
+368     46
+369     51
+370     62
+371      9
+372    143
+373      8
+374      1
+375      9
+376      3
+377      4
+378      2
+379     16
+380     32
+381      7
+382     32
+383      7
+384     50
+385     30
+386     40
+387     14
+388      3
+389      5
+390     70
+391     13
+392     63
+393      2
+394     19
+395     17
+396      1
+397      6
+398     10
+399      3
+400     21
+401     50
+402     34
+403     20
+404    213
+405     88
+406     10
+407      4
+408      2
+409     13
+410    100
+411      6
+412    111
+413     17
+414      5
+415     47
+416     16
+417     16
+418     10
+419     32
+420     45
+421     10
+422     11
+423      3
+424      4
+425     20
+426     52
+427    212
+428     10
+429   4426
+430     93
+431      9
+432      2
+433    273
+434     33
+435     15
+436     77
+437     21
+438     10
+439      2
+440    108
+441      2
+442     29
+443    245
+444    228
+445      1
+446     25
+447     27
+448     35
+449    244
+450      2
+451      1
+452   2043
+453    126
+454     24
+455     31
+456     26
+457      2
+458      6
+> 
+> #close the ODBC connection
+> odbcClose(ch)
+> 
+> 
+> require(RODBC)
+> 
+> #open the ODBC connection
+> ch <- odbcConnect("finConn")
+> 
+> ##### Alternative ODBC connection for Microsoft SQL Server
+> ch <- odbcDriverConnect(
++                         "Driver=SQL Server; Server=VPS0033LJFINNEY; Database=financialssandbox; UID=biuser; Pwd=p0w3R!!#"
++                        )
+> 
+> #run the query, store in a data frame
+> sqlResult <- sqlQuery(ch, "SELECT *
++                 FROM X_PLG_2017_AGG
++                 ;")
+> sqlResult
+    YYYY MM                                     partner_parent volume
+1   2017  1                     Acadia Parish Sheriff's Office    358
+2   2017  1                                   Adams County  PA     10
+3   2017  1                Adams County  PA Domestic Relations     83
+4   2017  1                  Adult & Pediatric Dermatology  PC    734
+5   2017  1                                  Aitkin County  MN      5
+6   2017  1                                Alexandria  Town of      5
+7   2017  1                        Allen Parish Sheriff Office    252
+8   2017  1                                    Amenia  Town of      6
+9   2017  1                                   Amherst  Town of     97
+10  2017  1                             Amityville  Village of     30
+11  2017  1                                   Anson County  NC    176
+12  2017  1                                          Armstrong     25
+13  2017  1              Ascension Parish Sheriff's Department    466
+14  2017  1                                  Assumption Parish     97
+15  2017  1                               Augusta  NY  Town of      3
+16  2017  1                                Austerlitz  Town of     15
+17  2017  1                                     Autauga County    253
+18  2017  1                                    Avon NY Town of     11
+19  2017  1                                   Avoyelles Parish     96
+20  2017  1                  Baldwin Borough Police Department      1
+21  2017  1                          Barkan Management Company    117
+22  2017  1                                Barrington  Town of     78
+23  2017  1                                        BASA/BUTLER      8
+24  2017  1                                            Bastrop     48
+25  2017  1                                Batavia NY  Town of      6
+26  2017  1                   Beauregard Parish Sheriff Office    316
+27  2017  1                                     Bedford County     24
+28  2017  1                                   Beekman  Town of      4
+29  2017  1                               Beekmantown  Town of     23
+30  2017  1                                    Bergen  Town of      6
+31  2017  1                                 Borough of Baldwin      9
+32  2017  1                            Bossier City  LA Courts     44
+33  2017  1                       Bradford County Prothonotary      2
+34  2017  1                                Brewer  ME  City of    139
+35  2017  1                               Bridgewater  Town of      1
+36  2017  1                                       Brown County      4
+37  2017  1                                Brownville  Town of     25
+38  2017  1                          Bucks County Prothonotary   1588
+39  2017  1                        Butler Area Sewer Authority    189
+40  2017  1                                     Byron  of Town      4
+41  2017  1                       Caddo Parish Clerk of Courts    516
+42  2017  1                             Caddo Sheriff's Office    269
+43  2017  1                                   Calcasieu Parish   1059
+44  2017  1                                    Calloway County     46
+45  2017  1                                     Cambria County     53
+46  2017  1              Cambria County  PA Domestic Relations     24
+47  2017  1                                Cambria NY  Town of     19
+48  2017  1                                     Cameron County      1
+49  2017  1                      Cameron Parish Sheriff Office    126
+50  2017  1                                    Canaan  Town of     24
+51  2017  1                                      Carbon County    241
+52  2017  1                                    Caroga  Town of      6
+53  2017  1                                    Caroline County     39
+54  2017  1                                  Catskill  Town of     47
+55  2017  1                              Central Lake Township      2
+56  2017  1                   Centre County Domestic Relations     20
+57  2017  1                             Charles Mix County  SD      3
+58  2017  1                            Charlevoix Township  MI      5
+59  2017  1                                   Chatham  Town of     23
+60  2017  1           Chenango County Community Mental Hygiene     15
+61  2017  1                                   Christian County    133
+62  2017  1                          Christian County Jail  KY     35
+63  2017  1                                City of Augusta  ME    214
+64  2017  1                                      City of Berea      8
+65  2017  1                                     City of Brewer     78
+66  2017  1                                City of Buffalo  IA     22
+67  2017  1                         City of Carthage City Hall     93
+68  2017  1                   City of Carthage Municipal Court      9
+69  2017  1                                   City of Columbia   4277
+70  2017  1                               City of Columbia  TN    158
+71  2017  1                                      City of Donna    824
+72  2017  1                                   City of Franklin      4
+73  2017  1                                   City of Ham Lake     29
+74  2017  1                                 City of Morgantown      1
+75  2017  1                             City of New London  MN      2
+76  2017  1                             City of Providence  RI    403
+77  2017  1                                    City of Sanford    375
+78  2017  1                                   City of Sherburn      3
+79  2017  1                                    City of Warwick    332
+80  2017  1                               City of Williamsport     22
+81  2017  1                                   Claiborne Parish     76
+82  2017  1                                 Clarion County  PA      3
+83  2017  1                                Clarkstown  Town of    393
+84  2017  1                                    Clay County  MN     31
+85  2017  1                            Clay County MN-Recorder     84
+86  2017  1                                   Clayton  Town of     33
+87  2017  1                                 Clinton County  PA      4
+88  2017  1                                   Cohoes  City of       5
+89  2017  1                                     Colon Township      4
+90  2017  1                                Columbia County  NY    110
+91  2017  1                      Columbia County Real Property      5
+92  2017  1                                  Columbiana County    684
+93  2017  1                    Concordia Parish Sheriff Office     77
+94  2017  1                               Conesus  Town of  NY      9
+95  2017  1                                    Cook County  MN     14
+96  2017  1                                    Copake  Town of     39
+97  2017  1                                  Cornwall  Town of     12
+98  2017  1                              County of Wabasha  MN     19
+99  2017  1                                    Crawford County    305
+100 2017  1                                Crawford County  PA      1
+101 2017  1             Crawford County Domestic Relations  PA     14
+102 2017  1                                   Crow Wing County     48
+103 2017  1                              Cumberland County  PA     71
+104 2017  1              Cumberland County  PA Clerk of Courts    133
+105 2017  1              Cumberland County  PA District Judges    134
+106 2017  1           Cumberland County  PA Domestic Relations    120
+107 2017  1                     Cumberland County Prothonotary    335
+108 2017  1                Cumberland County Recorder of Deeds     14
+109 2017  1                          Cumberland County Sheriff     29
+110 2017  1                            Cumberland Township  PA      6
+111 2017  1                                          Davenport    882
+112 2017  1                                  Deerpark  Town of      9
+113 2017  1                                  Dekalb County  IN     10
+114 2017  1                   DeKalb County Tax Commissioner's  12682
+115 2017  1                                 Deruyter   Town of      4
+116 2017  1                              DeSoto Parish Sheriff    140
+117 2017  1                                     Dover  Town of      3
+118 2017  1                                    Durham  Town of     13
+119 2017  1                            East Baton Rouge Parish    203
+120 2017  1                                East Carroll Parish     24
+121 2017  1                              East Feliciana Parish    206
+122 2017  1                            East Greenbush  Town of     16
+123 2017  1                            East Greenwich  Town of     26
+124 2017  1 Eastern Massachusetts Soccer Officials Association      7
+125 2017  1                                 Eau Claire Co ADRC     13
+126 2017  1                    Eau Claire Co. - Administration      5
+127 2017  1                                  Eau Claire County    209
+128 2017  1                  Eau Claire County  Administration      2
+129 2017  1          Eau Claire County - County Clerk's Office      6
+130 2017  1              Eau Claire County - Register of Deeds     32
+131 2017  1            Eau Claire County - UW Extension Office     22
+132 2017  1              Eau Claire County Corporation Counsel      2
+133 2017  1                                    Edmonson County     24
+134 2017  1                                 El Paso  County of   9913
+135 2017  1                    El Paso - County Clerk Downtown    381
+136 2017  1      El Paso County Emergency Services District #2      4
+137 2017  1                              El Paso County ESD #1      2
+138 2017  1                                El Paso County ESD1      9
+139 2017  1                               El Paso County Kiosk      9
+140 2017  1                    El Paso County Tax Assessor - E    361
+141 2017  1                   El Paso County Tax Assessor - NW    225
+142 2017  1       El Paso- County Clerk Collections Department    270
+143 2017  1               El Paso- County Clerk Eastside Annex    251
+144 2017  1                    El Paso- County Clerk Northeast    201
+145 2017  1            El Paso- County Clerk Vitals Department    560
+146 2017  1              El Paso- County Collections Northeast     85
+147 2017  1                 El Paso- County Collections Ysleta    113
+148 2017  1                El Paso-County Clerk Mission Valley     64
+149 2017  1                        El Paso-County Clerk Ysleta    450
+150 2017  1                                  Ellicott  Town of      4
+151 2017  1                                 Ellington  Town of      8
+152 2017  1                                 Ellisburg  Town of     17
+153 2017  1                                  Elmhurst Memorial     50
+154 2017  1                                  Elmore County  AL    272
+155 2017  1                      Erie County Health Department      1
+156 2017  1                                     Erie County PA    357
+157 2017  1                                  Evans NY  Town of     11
+158 2017  1                 Fayette County School District  KY     20
+159 2017  1               Financial Recovery Division Downtown    808
+160 2017  1                                   Floyd County  KY     57
+161 2017  1                                    Franklin County     21
+162 2017  1                                Franklin Parish  LA     45
+163 2017  1                       Friendswood I.S.D Tax Office    170
+164 2017  1                                 Fruitland  City of     36
+165 2017  1               Fulton County Solid Waste Department     10
+166 2017  1                              GA Donovan Management      2
+167 2017  1                                    Gallatin County     12
+168 2017  1                                Georgetown  City of     42
+169 2017  1                              Glade Spring  Town of     10
+170 2017  1                                 Glenville  Town of     25
+171 2017  1                      Grant Parish Sheriff's Office     58
+172 2017  1                                   Granville County    121
+173 2017  1                Granville County Sheriff Department     70
+174 2017  1                                      Greene County    210
+175 2017  1                                     Groton School      28
+176 2017  1                   Gwinnett County Tax Commissioner    614
+177 2017  1                                  Halfmoon  Town of     39
+178 2017  1                                        Hall County   2819
+179 2017  1                         Hall County Animal Shelter     99
+180 2017  1                   Hall County Building Inspections     96
+181 2017  1              Hall County Business License Renewals    213
+182 2017  1                           Hall County EMS Services     11
+183 2017  1                           Hall County Public Works      5
+184 2017  1                                   Hamburg  Town of    143
+185 2017  1                                   Hamburg Township     13
+186 2017  1                                    Hamlin  Town of     24
+187 2017  1                                 Hancock County  IN     73
+188 2017  1                                       Hart County      28
+189 2017  1                                  Hartland  Town of     28
+190 2017  1                                  Hastings  Town of      4
+191 2017  1            Hawaii Child Support Enforcement Agency     92
+192 2017  1                                 Henderson  Town of      9
+193 2017  1                                 Highlands  Town of     11
+194 2017  1                                 Hillsdale  Town of     34
+195 2017  1                                  Huntingdon County     16
+196 2017  1                                 Huron  Town of  NY     12
+197 2017  1                                   Iberville Parish    110
+198 2017  1                                               IBTS     33
+199 2017  1                                              INBiz  18065
+200 2017  1                                            Indiana  26938
+201 2017  1            Indiana Department of Homeland Security   1380
+202 2017  1                        Indiana Department of Labor      4
+203 2017  1        Indiana Department of Workforce Development   2876
+204 2017  1                        Indiana DOR tax liabilities    140
+205 2017  1  Indiana Grain Buyers & Warehouse Licensing Agency     24
+206 2017  1             Indianapolis Airport Police Department     97
+207 2017  1                                  Isanti County  MN      2
+208 2017  1                                 Jackson County  KS     64
+209 2017  1                                     Jackson Parish     38
+210 2017  1                                      Jasper County     29
+211 2017  1                             Jefferson Davis Parish    142
+212 2017  1                                  Jersey City  HEDC    134
+213 2017  1                                    Jersey City  NJ    612
+214 2017  1                              Jersey City  NJ- DOPW     26
+215 2017  1                                     Johnson County    986
+216 2017  1                             Joslin Diabetes Center    209
+217 2017  1                                     Kanabec County     24
+218 2017  1                       Kansas Department of Revenue     40
+219 2017  1                               Kearney Township  MI      2
+220 2017  1                                          Kelly Law      8
+221 2017  1                            Kelly Law Office  L.L.P     16
+222 2017  1                                    Kent County  DE    669
+223 2017  1                                    Kent County  MD     32
+224 2017  1                              Killingworth  Town of      2
+225 2017  1                                 Kingsbury  Town of     15
+226 2017  1                   Kingstone Insurance Company  Inc   2663
+227 2017  1                                 KJL Properties LLC     32
+228 2017  1                                  Lackawanna County    179
+229 2017  1                                   Lafayette Parish    966
+230 2017  1                  Lafourche Parish Sheriff's Office    604
+231 2017  1                                     Lebanon County     12
+232 2017  1                                       Lewis County      7
+233 2017  1                                   Limestone County    300
+234 2017  1                      Lincoln Parish Sheriff Office    314
+235 2017  1                   Linton-Stockton Recurring Portal    142
+236 2017  1                                  Livingston Parish   1267
+237 2017  1                      Lower Makefield Tax Collector      3
+238 2017  1                                     Luzerne County    197
+239 2017  1                                    Lycoming County     78
+240 2017  1                                 Madison County  KY     31
+241 2017  1                      Madison Parish Sheriff Office     69
+242 2017  1                                     Malta  Town of     13
+243 2017  1                                Mamakating  Town of    115
+244 2017  1                                Manchester  Town of     40
+245 2017  1                                   Manitowoc County     12
+246 2017  1                          Maple Forest Township  MI      8
+247 2017  1                               Maple Shade Township     23
+248 2017  1                  Maple Shade Township Property Tax      9
+249 2017  1                     Maple Shade Township Utilities     99
+250 2017  1                   Marshall County Sheriff's Office     13
+251 2017  1                        Martha's Vineyard Insurance      1
+252 2017  1           MBM Collections - Borough of Wilkinsburg     41
+253 2017  1    MBM Collections - Keystone Oaks School District      7
+254 2017  1      MBM Collections - Wilkinsburg School District     26
+255 2017  1  MBM Collections Elizabeth Forward School District     26
+256 2017  1                                      McKean County    264
+257 2017  1                             Mechanicville  City of      5
+258 2017  1                                      Mercer County    331
+259 2017  1                                 Mifflin  County of     13
+260 2017  1                                     Mifflin County    101
+261 2017  1                                    Milton  Town of     15
+262 2017  1                                      Mobile County   1719
+263 2017  1                                 Monroe  Village of      3
+264 2017  1                                  Monroe County  PA     30
+265 2017  1                  Monroe County Building Department     24
+266 2017  1                          Monroe County Health Dept    117
+267 2017  1                              Montgomery County  NY      5
+268 2017  1                               Montgomery County PA    322
+269 2017  1                 Montoursville Area School District     33
+270 2017  1                                Morehouse Parish LA    108
+271 2017  1                                  Morgan County  AL    344
+272 2017  1                                   Mount Laurel MUA   1016
+273 2017  1                             Muncy School District      15
+274 2017  1    Municipal Authority of the Borough of Matamoras      9
+275 2017  1                            Natchitoches Parish  LA    138
+276 2017  1                           New Bedford  MA  City of    700
+277 2017  1                                New Canaan  Town of      1
+278 2017  1                              New Hartford  Town of      3
+279 2017  1                              New Scotland  Town of     40
+280 2017  1                                    Newark  City of   1860
+281 2017  1                                  Niagara Falls  NY    115
+282 2017  1                       Niagara Falls  NY-City Clerk     42
+283 2017  1                 Niagara Falls  NY-Code Enforcement      4
+284 2017  1               Niagara Falls  NY-Parking Violations     42
+285 2017  1                   Nicholas County Sheriff's Office      7
+286 2017  1                           North Greenbush  Town of     22
+287 2017  1                           North Hempstead  Town of    127
+288 2017  1                               North Hempstead SWMA    302
+289 2017  1                                 Noxubee County  MS     40
+290 2017  1                              Oakfield  Town of  NY      4
+291 2017  1                                   Oakland Park  FL    778
+292 2017  1                                   Oakland Township     20
+293 2017  1                                        Ogle County     14
+294 2017  1                                      Oneida County     31
+295 2017  1                                Oneida County Clerk     22
+296 2017  1                 Oneida County Probation Department     25
+297 2017  1                  Oneida County Weight and Measures      2
+298 2017  1                                         Orangetown    170
+299 2017  1                                Orleans  NY Town of     14
+300 2017  1             Orleans Co Department of Mental Health     25
+301 2017  1                                 Orleans County  NY      5
+302 2017  1                   Orleans County Health Department      1
+303 2017  1                            Oscoda County Treasurer     23
+304 2017  1                                    Ouachita Parish    710
+305 2017  1                              Palm Springs  City of     55
+306 2017  1                                  Pembroke  Town of      1
+307 2017  1                                  Penfield  Town of     22
+308 2017  1                                 Perkiomen Township    500
+309 2017  1                                  Person County  NC     30
+310 2017  1                                      Peru  Town of     23
+311 2017  1                                        Pike County    174
+312 2017  1                                 Plaquemines Parish    164
+313 2017  1                               Poestenkill  Town of      3
+314 2017  1                         Polk County Finance Office     13
+315 2017  1                           Polk County Public Works     11
+316 2017  1                                   Posey County  IN      3
+317 2017  1                                             Potter     26
+318 2017  1                                    Reading City of     91
+319 2017  1                                    Richland Parish     51
+320 2017  1                                  Rivier University    100
+321 2017  1             Rockcastle County Sheriff's Office  KY     12
+322 2017  1                                    Rodman  Town of      4
+323 2017  1                                  Royalton  Town of     13
+324 2017  1                            Rural Community Academy      5
+325 2017  1                       Sabine Parish Sheriff Office    291
+326 2017  1                                          Sand Lake      6
+327 2017  1                               Sangerfield  Town of      1
+328 2017  1                                               SAWS  56171
+329 2017  1                                  Schodack  Town of     43
+330 2017  1                                Scotland County  NC     99
+331 2017  1                           Searsport Water District     46
+332 2017  1                                  Shelby County  AL    682
+333 2017  1                               Sherman  NY  Town of      1
+334 2017  1                              Smethport Borough  PA     46
+335 2017  1                                Smithville  Town of     13
+336 2017  1                                Solomon and Solomon   1106
+337 2017  1                                           Somerset      6
+338 2017  1                            South Portland  City of    441
+339 2017  1                         South Shore Elder Services     22
+340 2017  1                                  Southold  Town of    123
+341 2017  1                                 Southport  Town of     51
+342 2017  1                               Springfield Hospital    325
+343 2017  1                                          St John's    465
+344 2017  1                             St. Bernard Parish  LA    174
+345 2017  1                             St. Charles Parish  LA    154
+346 2017  1                               St. Croix County  WI      3
+347 2017  1                           St. James Sheriff Office     94
+348 2017  1                   St. Landry Parish Sheriff Office    539
+349 2017  1                                    St. Mary Parish    135
+350 2017  1                                         St. Paul's    169
+351 2017  1                     St. Thomas Aquinas High School      1
+352 2017  1                                  State of Colorado   3144
+353 2017  1                                  State of Illinois   1198
+354 2017  1                                   State of Indiana  25079
+355 2017  1                                 State of Minnesota   3394
+356 2017  1                                State of Washington    618
+357 2017  1                                 Steuben County  NY    117
+358 2017  1                                Stillwater  Town of     22
+359 2017  1                                 Stratford  Town of      4
+360 2017  1                              Stuyvesant NY Town of      1
+361 2017  1                                 Sullivan County PA      2
+362 2017  1                                  Syracuse  City of     13
+363 2017  1                                  Talbot County  MD     84
+364 2017  1                                  Tangipahoa Parish    496
+365 2017  1                                      Taylor County     27
+366 2017  1                          Tennessee County Services      9
+367 2017  1                                  Terrebonne Parish    539
+368 2017  1                                      Tioga County      46
+369 2017  1                                   Tioga County Tax     51
+370 2017  1                               Tippecanoe County IN     62
+371 2017  1                                   Tolland  Town of      9
+372 2017  1                                Tonawanda  Town of     143
+373 2017  1                                 Town of Albion  NY      8
+374 2017  1                                 Town of Berlin  VT      1
+375 2017  1                                Town of Bethany  NY      9
+376 2017  1                                     Town of Bolton      3
+377 2017  1                                    Town of Brandon      4
+378 2017  1                              Town of Brentwood  NH      2
+379 2017  1                               Town of Brighton  NY     16
+380 2017  1                                      Town of Cairo     32
+381 2017  1                                Town of Canajoharie      7
+382 2017  1                                Town of Canandaigua     32
+383 2017  1                              Town of Castleton  VT      7
+384 2017  1                                Town of Cheektowaga     50
+385 2017  1                                      Town of Chili     30
+386 2017  1                                   Town of Clarkson     40
+387 2017  1                                   Town of Coeymans     14
+388 2017  1                                   Town of Cornwall      3
+389 2017  1                                  Town of Dannemora      5
+390 2017  1                                  Town of Derry  NH     70
+391 2017  1                                  Town of Essex  VT     13
+392 2017  1                                 Town of Farmington     63
+393 2017  1                                Town of Gaines  NY       2
+394 2017  1                                  Town of Gates  NY     19
+395 2017  1                                 Town of Greenville     17
+396 2017  1                    Town of Hartland - Town Justice      1
+397 2017  1                                  Town of Johnsburg      6
+398 2017  1                                 Town of Kinderhook     10
+399 2017  1                                Town of Lake George      3
+400 2017  1                                    Town of Livonia     21
+401 2017  1                                     Town of Monroe     50
+402 2017  1                                 Town of Montgomery     34
+403 2017  1                                 Town of Newfane NY     20
+404 2017  1                                 Town of North East    213
+405 2017  1                             Town of North Elba  NY     88
+406 2017  1                           Town of Orchard Park  NY     10
+407 2017  1                                  Town of Pendleton      4
+408 2017  1                                Town of Petersburgh      2
+409 2017  1                                 Town Of Plainville     13
+410 2017  1                                Town of Plattsburgh    100
+411 2017  1                                     Town of Pompey      6
+412 2017  1                                 Town of Queensbury    111
+413 2017  1                                   Town of Ridgeway     17
+414 2017  1                                       Town of Riga      5
+415 2017  1                                   Town of Royalton     47
+416 2017  1                                   Town of Saratoga     16
+417 2017  1                                   Town of Schodack     16
+418 2017  1                                 Town of Shelby  NY     10
+419 2017  1                                    Town of Trenton     32
+420 2017  1                                    Town of Warwick     45
+421 2017  1                                      Town of Weare     10
+422 2017  1                            Town of West Seneca  NY     11
+423 2017  1                                Town of Westford NY      3
+424 2017  1                                   Town of Woodbury      4
+425 2017  1                        Town/Village of Woodbury NY     20
+426 2017  1                              Tuscarawas County  OH     52
+427 2017  1                        Union Parish Sheriff Office    212
+428 2017  1                                Union Vale  Town of     10
+429 2017  1                             University of Kentucky   4426
+430 2017  1                                  Venango County PA     93
+431 2017  1                    Venango County Tax Claim Bureau      9
+432 2017  1                           Venango County Treasurer      2
+433 2017  1                               Vermilion Parish  LA    273
+434 2017  1                                    Victor  Town of     33
+435 2017  1                          Village of Essex Junction     15
+436 2017  1                               Village of Holly  MI     77
+437 2017  1                        Village of L'Anse  Michigan     21
+438 2017  1                                  Village of Scotia     10
+439 2017  1                                 Wabasha County  MN      2
+440 2017  1                                  Wallkill  Town of    108
+441 2017  1                                    Walton  Town of      2
+442 2017  1                               Warrensburg  Town of     29
+443 2017  1                              Washington County  VA    245
+444 2017  1                                  Washington Parish    228
+445 2017  1                             Watertown  Town of  NY      1
+446 2017  1                                   Wayne County  PA     25
+447 2017  1                         Wayne County Sheriff's  KY     27
+448 2017  1                      Wayne County Sheriff's Office     35
+449 2017  1                    Webster Parish Sheriff's Office    244
+450 2017  1                                   Wells County  IN      2
+451 2017  1                       Wesley Hills NY  Village of       1
+452 2017  1                                       Westmoreland   2043
+453 2017  1                  Williamsport Area School District    126
+454 2017  1                                     Wilna  Town of     24
+455 2017  1                                    Wilton  Town of     31
+456 2017  1                                     Wyoming County     26
+457 2017  1                  Wyoming County Domestic Relations      2
+458 2017  1        Yuma County Public Transportation Authority      6
+> 
